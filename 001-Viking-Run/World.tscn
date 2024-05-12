@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://day2obkknq7n6"]
+
+[ext_resource type="Texture2D" uid="uid://cnfp0rfx3qqwo" path="res://assets/clouds_02.png" id="1_5gn48"]
+[ext_resource type="Texture2D" uid="uid://c1xmaacd2wer4" path="res://assets/middleground.png" id="1_je8fg"]
+[ext_resource type="PackedScene" uid="uid://c0oxffugc611e" path="res://scenes/Dan/Dan.tscn" id="1_vw54b"]
+[ext_resource type="PackedScene" uid="uid://cf2mcluuhymy2" path="res://map.tscn" id="2_bbt0y"]
+[ext_resource type="Texture2D" uid="uid://d2r50jr00yyvr" path="res://assets/clouds_01.png" id="2_ffyrl"]
+[ext_resource type="Texture2D" uid="uid://ekqarpsti7p2" path="res://assets/foregound.png" id="3_nmdrf"]
+
+[node name="World" type="Node2D"]
+metadata/_edit_vertical_guides_ = [320.0]
+
+[node name="Clouds" type="TextureRect" parent="."]
+offset_left = -319.0
+offset_top = -204.0
+offset_right = 318.0
+offset_bottom = 154.0
+texture = ExtResource("1_5gn48")
+
+[node name="Clouds2" type="TextureRect" parent="."]
+offset_left = -319.0
+offset_top = -204.0
+offset_right = 318.0
+offset_bottom = 154.0
+texture = ExtResource("2_ffyrl")
+
+[node name="Middleground2" type="TextureRect" parent="."]
+offset_left = -319.0
+offset_top = -204.0
+offset_right = 318.0
+offset_bottom = 154.0
+texture = ExtResource("1_je8fg")
+
+[node name="Map Scene" parent="." instance=ExtResource("2_bbt0y")]
+position = Vector2(-320, 182)
+
+[node name="Foreground" type="TextureRect" parent="."]
+offset_left = -319.0
+offset_top = -1.0
+offset_right = 318.0
+offset_bottom = 179.0
+texture = ExtResource("3_nmdrf")
+
+[node name="Dan" parent="." instance=ExtResource("1_vw54b")]
+position = Vector2(-244, 123)
+speed = 300
+jump_speed = -460
+gravity = 1740
+friction = 0.443
+acceleration = 0.025
+
+[node name="Camera2D" type="Camera2D" parent="Dan"]
+position = Vector2(1, -1)
+zoom = Vector2(1.2, 1.2)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
