@@ -8,16 +8,16 @@ extends CharacterBody2D
 
 var sprint_velocity_threshold = 190
 
-func handle_horizontal_movement(direction, delta):
+func handle_horizontal_movement(direction):
 	if direction:
 		velocity.x = lerp(velocity.x, direction * speed, acceleration)
 	else:
-		velocity.x = lerp(velocity.x, 0.0, friction )
+		velocity.x = lerp(velocity.x, 0.0, friction)
 
 func get_input(delta):	
 	# Move left and right
 	var direction = Input.get_axis("move_left", "move_right")
-	handle_horizontal_movement(direction, delta)
+	handle_horizontal_movement(direction)
 	
 	# Handle jump
 	if Input.is_action_just_pressed("jump") and is_on_floor():
