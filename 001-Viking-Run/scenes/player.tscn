@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://c0oxffugc611e"]
+[gd_scene load_steps=29 format=3 uid="uid://c0oxffugc611e"]
 
 [ext_resource type="Texture2D" uid="uid://ciq8awnkh2l7r" path="res://assets/dan/sprite-sheet.png" id="1_avmt3"]
 [ext_resource type="Script" path="res://scripts/player_running_state.gd" id="3_1rgpi"]
@@ -71,7 +71,19 @@ region = Rect2(690, 168, 115, 84)
 atlas = ExtResource("1_avmt3")
 region = Rect2(805, 168, 115, 84)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_33qvm"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_16u4h"]
+atlas = ExtResource("1_avmt3")
+region = Rect2(0, 1260, 115, 84)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5vig4"]
+atlas = ExtResource("1_avmt3")
+region = Rect2(115, 1260, 115, 84)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ynk0t"]
+atlas = ExtResource("1_avmt3")
+region = Rect2(230, 1260, 115, 84)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4joiq"]
 atlas = ExtResource("1_avmt3")
 region = Rect2(345, 1260, 115, 84)
 
@@ -152,11 +164,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_33qvm")
+"texture": SubResource("AtlasTexture_16u4h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5vig4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ynk0t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4joiq")
 }],
 "loop": false,
 "name": &"slide",
-"speed": 10.0
+"speed": 24.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hgp7d"]
@@ -167,12 +188,16 @@ size = Vector2(20, 39.5)
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(5, 2)
 sprite_frames = SubResource("SpriteFrames_3oa23")
-animation = &"attack"
+animation = &"slide"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(3, 11)
 shape = SubResource("RectangleShape2D_hgp7d")
 debug_color = Color(0.833614, 0.0013354, 0.937399, 0.42)
+
+[node name="SlideTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
 
 [node name="States" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("3_4f6te")
@@ -196,3 +221,4 @@ jump_time_to_descent = 0.4
 script = ExtResource("6_uqauy")
 
 [connection signal="animation_finished" from="PlayerSprite" to="States/Attacking" method="_on_player_sprite_animation_finished"]
+[connection signal="timeout" from="SlideTimer" to="States/Sliding" method="_on_slide_timer_timeout"]
