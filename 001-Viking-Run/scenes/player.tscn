@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c0oxffugc611e"]
+[gd_scene load_steps=26 format=3 uid="uid://c0oxffugc611e"]
 
 [ext_resource type="Texture2D" uid="uid://ciq8awnkh2l7r" path="res://assets/dan/sprite-sheet.png" id="1_avmt3"]
 [ext_resource type="Script" path="res://scripts/player_running_state.gd" id="3_1rgpi"]
@@ -6,10 +6,6 @@
 [ext_resource type="Script" path="res://scripts/player_attacking_state.gd" id="4_1kgj8"]
 [ext_resource type="Script" path="res://scripts/player_jumping_state.gd" id="5_qk8m1"]
 [ext_resource type="Script" path="res://scripts/player_sliding_state.gd" id="6_uqauy"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qsbr6"]
-atlas = ExtResource("1_avmt3")
-region = Rect2(0, 672, 115, 84)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3nfcl"]
 atlas = ExtResource("1_avmt3")
@@ -82,9 +78,6 @@ region = Rect2(345, 1260, 115, 84)
 [sub_resource type="SpriteFrames" id="SpriteFrames_3oa23"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qsbr6")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3nfcl")
 }, {
@@ -171,19 +164,10 @@ size = Vector2(20, 39.5)
 
 [node name="Player" type="CharacterBody2D"]
 
-[node name="Label" type="Label" parent="."]
-offset_left = -32.0
-offset_top = -30.0
-offset_right = 40.0
-offset_bottom = -16.0
-theme_override_font_sizes/font_size = 10
-text = "Test"
-horizontal_alignment = 1
-
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(5, 2)
 sprite_frames = SubResource("SpriteFrames_3oa23")
-animation = &"run"
+animation = &"attack"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(3, 11)
@@ -210,3 +194,5 @@ jump_time_to_descent = 0.4
 
 [node name="Sliding" type="Node" parent="States"]
 script = ExtResource("6_uqauy")
+
+[connection signal="animation_finished" from="PlayerSprite" to="States/Attacking" method="_on_player_sprite_animation_finished"]

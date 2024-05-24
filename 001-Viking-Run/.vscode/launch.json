@@ -1,0 +1,6 @@
+{
+  "name": "Launch",
+  "type": "godot",
+  "request": "launch",
+  "editor_path": "/Applications/Godot.app/Contents/MacOS/Godot"
+}
