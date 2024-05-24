@@ -53,10 +53,6 @@ position = Vector2(2.08165e-12, 361)
 
 [node name="Player" parent="." instance=ExtResource("6_gug0v")]
 position = Vector2(128, 296)
-jump_speed = -460
-gravity = 1740
-friction = 0.443
-acceleration = 0.025
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(-128, -294)

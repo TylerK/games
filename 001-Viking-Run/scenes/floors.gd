@@ -10,8 +10,8 @@ func _process(delta):
 		$Forground,
 		$Forground2
 	]
-	
-	for ground in grounds: 
+
+	for ground in grounds:
 		ground.position.x -= speed * delta
 		if (ground.position.x <= -640):
 			ground.position.x = 0
