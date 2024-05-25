@@ -8,15 +8,15 @@ class_name JumpingState
 func enter():
 	animation.play("jump1")
 	if actor.is_on_floor():
-		actor.velocity.y = jump_velocity
+		actor.velocity.y = actor.jump_velocity
 
 func physics_update(delta):
 	actor.move_and_slide()
-	actor.velocity.y += get_gravity() * delta
+	actor.velocity.y += actor.get_gravity() * delta
 	if Input.is_action_just_pressed("attack"):
 		transitioned.emit("AirAttacking")
 	if actor.is_on_floor():
 		transitioned.emit('Running')
 
 func get_gravity() -> float:
-	return jump_gravity if actor.velocity.y < 0.0 else fall_gravity
+	return actor.jump_gravity if actor.velocity.y < 0.0 else actor.fall_gravity

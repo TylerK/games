@@ -6,8 +6,8 @@ class_name AttackingState
 @onready var animation: AnimatedSprite2D = $"../../PlayerSprite"
 
 func enter():
-	animation.connect("animation_finished", on_animation_finished)
 	animation.play('attack')
 
-func on_animation_finished():
-	transitioned.emit('Running')
+func physics_update(_delta):
+	if animation.frame == 3:
+		transitioned.emit('Running')

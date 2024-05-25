@@ -1,13 +1,14 @@
-[gd_scene load_steps=42 format=3 uid="uid://c0oxffugc611e"]
+[gd_scene load_steps=43 format=3 uid="uid://c0oxffugc611e"]
 
 [ext_resource type="Texture2D" uid="uid://ciq8awnkh2l7r" path="res://assets/player/sprite-sheet.png" id="1_o3tlo"]
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_ood15"]
 [ext_resource type="Texture2D" uid="uid://birl44vnjr8rn" path="res://assets/effects/Ice Smoke-Sheet.png" id="2_xvfx6"]
-[ext_resource type="Script" path="res://scripts/player_running_state.gd" id="3_1rgpi"]
 [ext_resource type="Script" path="res://classes/state_machine.gd" id="3_4f6te"]
-[ext_resource type="Script" path="res://scripts/player_attacking_state.gd" id="4_1kgj8"]
-[ext_resource type="Script" path="res://scripts/player_jumping_state.gd" id="5_qk8m1"]
-[ext_resource type="Script" path="res://scripts/player_sliding_state.gd" id="6_uqauy"]
-[ext_resource type="Script" path="res://scripts/player_air_attacking_state.gd" id="6_yfur7"]
+[ext_resource type="Script" path="res://scripts/player/player_running_state.gd" id="5_wgdf4"]
+[ext_resource type="Script" path="res://scripts/player/player_attacking_state.gd" id="6_6jj5l"]
+[ext_resource type="Script" path="res://scripts/player/player_air_attacking_state.gd" id="7_t8dn6"]
+[ext_resource type="Script" path="res://scripts/player/player_jumping_state.gd" id="8_ht3du"]
+[ext_resource type="Script" path="res://scripts/player/player_sliding_state.gd" id="9_5d7la"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8atd2"]
 atlas = ExtResource("1_o3tlo")
@@ -265,9 +266,14 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_aaqpx"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_42ntb"]
+size = Vector2(20, 40)
 
 [node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_ood15")
+jump_height = 60.0
+jump_time_to_peak = 0.6
+jump_time_to_descent = 0.33
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(5, 2)
@@ -282,8 +288,8 @@ frame = 3
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3, 15.375)
-shape = SubResource("CapsuleShape2D_aaqpx")
+position = Vector2(3, 12)
+shape = SubResource("RectangleShape2D_42ntb")
 debug_color = Color(0.833614, 0.0013354, 0.937399, 0.42)
 
 [node name="SlideTimer" type="Timer" parent="."]
@@ -295,25 +301,22 @@ script = ExtResource("3_4f6te")
 current_state = NodePath("Jumping")
 
 [node name="Running" type="Node" parent="States" node_paths=PackedStringArray("actor")]
-script = ExtResource("3_1rgpi")
+script = ExtResource("5_wgdf4")
 actor = NodePath("../..")
 
 [node name="Attacking" type="Node" parent="States" node_paths=PackedStringArray("actor")]
-script = ExtResource("4_1kgj8")
+script = ExtResource("6_6jj5l")
 actor = NodePath("../..")
 
 [node name="AirAttacking" type="Node" parent="States" node_paths=PackedStringArray("actor")]
-script = ExtResource("6_yfur7")
+script = ExtResource("7_t8dn6")
 actor = NodePath("../..")
 
 [node name="Jumping" type="Node" parent="States" node_paths=PackedStringArray("actor")]
-script = ExtResource("5_qk8m1")
+script = ExtResource("8_ht3du")
 actor = NodePath("../..")
-jump_height = 66.0
-jump_time_to_peak = 0.3
-jump_time_to_descent = 0.4
 
 [node name="Sliding" type="Node" parent="States"]
-script = ExtResource("6_uqauy")
+script = ExtResource("9_5d7la")
 
 [connection signal="timeout" from="SlideTimer" to="States/Sliding" method="_on_slide_timer_timeout"]
