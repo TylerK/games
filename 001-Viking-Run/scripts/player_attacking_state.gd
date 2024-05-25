@@ -2,11 +2,12 @@ extends State
 
 class_name AttackingState
 
+@export var actor: CharacterBody2D
+@onready var animation: AnimatedSprite2D = $"../../PlayerSprite"
+
 func enter():
-	$"../../PlayerSprite".play('attack')
+	animation.connect("animation_finished", on_animation_finished)
+	animation.play('attack')
 
-func physics_update(_delta):
-	pass
-
-func _on_player_sprite_animation_finished():
+func on_animation_finished():
 	transitioned.emit('Running')

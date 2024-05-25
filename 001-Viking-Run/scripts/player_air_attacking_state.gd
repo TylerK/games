@@ -1,22 +1,18 @@
 extends State
 
-class_name JumpingState
+class_name PlayerAirAttackingState
 
 @export var actor: CharacterBody2D
 @onready var animation: AnimatedSprite2D = $"../../PlayerSprite"
 
 func enter():
-	animation.play("jump1")
-	if actor.is_on_floor():
-		actor.velocity.y = jump_velocity
+	animation.play("air_attack")
 
-func physics_update(delta):
+func physics_process(delta):
 	actor.move_and_slide()
 	actor.velocity.y += get_gravity() * delta
-	if Input.is_action_just_pressed("attack"):
-		transitioned.emit("AirAttacking")
 	if actor.is_on_floor():
-		transitioned.emit('Running')
+		transitioned.emit("Jumping")
 
 func get_gravity() -> float:
 	return jump_gravity if actor.velocity.y < 0.0 else fall_gravity

@@ -52,10 +52,11 @@ offset = Vector2(160, 2.08165e-12)
 position = Vector2(2.08165e-12, 361)
 
 [node name="Player" parent="." instance=ExtResource("6_gug0v")]
-position = Vector2(128, 296)
+position = Vector2(128, -56)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(-128, -294)
+position = Vector2(-128, -200)
 anchor_mode = 0
+zoom = Vector2(1.2, 1.2)
 position_smoothing_enabled = true
 position_smoothing_speed = 33.0
