@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://day2obkknq7n6"]
+[gd_scene load_steps=6 format=3 uid="uid://day2obkknq7n6"]
 
 [ext_resource type="Script" path="res://scripts/parallax_background.gd" id="1_bhc5d"]
-[ext_resource type="PackedScene" uid="uid://cf2mcluuhymy2" path="res://scenes/floors.tscn" id="4_entm2"]
 [ext_resource type="Texture2D" uid="uid://cnfp0rfx3qqwo" path="res://assets/clouds_02.png" id="5_hcui3"]
 [ext_resource type="Texture2D" uid="uid://d2r50jr00yyvr" path="res://assets/clouds_01.png" id="6_5y1nm"]
 [ext_resource type="PackedScene" uid="uid://c0oxffugc611e" path="res://scenes/player.tscn" id="6_gug0v"]
@@ -31,7 +30,6 @@ offset = Vector2(160, 2.08165e-12)
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="Background/ParallaxBackground"]
 motion_scale = Vector2(0.6, 0.6)
-motion_offset = Vector2(-2, 2.08165e-12)
 motion_mirroring = Vector2(320, 2.08165e-12)
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer2"]
@@ -48,18 +46,14 @@ position = Vector2(0, 90)
 texture = ExtResource("7_1o1ok")
 offset = Vector2(160, 2.08165e-12)
 
-[node name="Floors" parent="." instance=ExtResource("4_entm2")]
-position = Vector2(2.08165e-12, 361)
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(4.16329e-12, 4.16329e-12)
+anchor_mode = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 33.0
 
 [node name="Player" parent="." instance=ExtResource("6_gug0v")]
-position = Vector2(128, -56)
+position = Vector2(32, 240)
 jump_height = 100.0
 jump_time_to_peak = 0.36
 jump_time_to_descent = 0.28
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(-128, -200)
-anchor_mode = 0
-zoom = Vector2(1.2, 1.2)
-position_smoothing_enabled = true
-position_smoothing_speed = 33.0

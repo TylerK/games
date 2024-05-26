@@ -2,7 +2,6 @@ extends CharacterBody2D
 
 class_name Player
 
-@export var actor: CharacterBody2D
 @export var jump_height: float
 @export var jump_time_to_peak: float
 @export var jump_time_to_descent: float
@@ -13,3 +12,6 @@ class_name Player
 
 func get_gravity() -> float:
 	return jump_gravity if velocity.y < 0.0 else fall_gravity
+
+func _physics_process(_delta: float) -> void:
+	move_and_slide()
