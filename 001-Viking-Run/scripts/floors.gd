@@ -1,33 +1,34 @@
 extends Node2D
 
-const STARTING_FLOOR_COUNT := 3
-var starting_platforms := []
+var platforms = []
 
 func _ready() -> void:
-	var platforms:= get_children()
+	reset_platforms()
 
-	# Randomly pick platforms and add them to starting_platforms
-	for _i in range(STARTING_FLOOR_COUNT):
-		starting_platforms.append(platforms.pick_random())
-	# Correctly prints (0,0) for each platform
-	for p in starting_platforms:
-		print(p.position)
+func _process(delta: float) -> void:
+	for platform in platforms:
+		platform.position.x -= Globals.scroll_speed * delta
+		#print(platform.name, ' ', platform.position.x)
+		var platform_width = platform.get_used_rect().size.x * platform.rendering_quadrant_size
+		if platform.position.x + platform_width < 0.0:
+			platforms.pop_front()
 
-	print('----')
+	if platforms.size() <= 1:
+		reset_platforms()
 
-	# Position the platforms
-	for i in range(starting_platforms.size()):
-		starting_platforms[i].position = Vector2(i * 640, 0)
-		# This prints the correct positions
-		print(starting_platforms[i].position)
 
-	print('----')
+func reset_platforms():
+	print('resetting ', platforms)
+	var count = 0
+	var tempArray = []
+	tempArray.append_array(get_children())
+	tempArray.shuffle()
 
-	for i in range(starting_platforms.size()):
-		# This prints incorrect positions
-		print(starting_platforms[i].position)
-##
-#func _process(_delta: float) -> void:
-	#print('----')
-	#for i in range(starting_platforms.size()):
-		#print(i, ' ', starting_platforms[i].position)
+	for platform in tempArray:
+		platform.position = Vector2(640 * count, 360)
+		count += 1
+
+	platforms.append_array(tempArray)
+
+	for platform in platforms:
+		print(platform.name, ':: ', platform.position)

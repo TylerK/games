@@ -11,7 +11,6 @@ func enter():
 		actor.velocity.y = actor.jump_velocity
 
 func physics_update(delta):
-	actor.velocity.y += actor.get_gravity() * delta
 	if Input.is_action_just_pressed("attack"):
 		transitioned.emit("AirAttacking")
 	if actor.is_on_floor():

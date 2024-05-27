@@ -13,5 +13,6 @@ class_name Player
 func get_gravity() -> float:
 	return jump_gravity if velocity.y < 0.0 else fall_gravity
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	velocity.y += get_gravity() * delta
 	move_and_slide()

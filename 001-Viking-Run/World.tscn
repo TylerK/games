@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://day2obkknq7n6"]
+[gd_scene load_steps=7 format=3 uid="uid://day2obkknq7n6"]
 
+[ext_resource type="PackedScene" uid="uid://du8a01auyofre" path="res://scenes/platforms.tscn" id="1_a3eof"]
 [ext_resource type="Script" path="res://scripts/parallax_background.gd" id="1_bhc5d"]
 [ext_resource type="Texture2D" uid="uid://cnfp0rfx3qqwo" path="res://assets/clouds_02.png" id="5_hcui3"]
 [ext_resource type="Texture2D" uid="uid://d2r50jr00yyvr" path="res://assets/clouds_01.png" id="6_5y1nm"]
@@ -9,6 +10,8 @@
 [node name="World" type="Node2D"]
 position = Vector2(2.08165e-12, 2.08165e-12)
 metadata/_edit_vertical_guides_ = [320.0]
+
+[node name="Floors" parent="." instance=ExtResource("1_a3eof")]
 
 [node name="Background" type="Node2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
@@ -53,7 +56,7 @@ position_smoothing_enabled = true
 position_smoothing_speed = 33.0
 
 [node name="Player" parent="." instance=ExtResource("6_gug0v")]
-position = Vector2(32, 240)
+position = Vector2(120, 224)
 jump_height = 100.0
 jump_time_to_peak = 0.36
 jump_time_to_descent = 0.28
