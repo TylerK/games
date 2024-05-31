@@ -274,6 +274,7 @@ script = ExtResource("1_ood15")
 jump_height = 60.0
 jump_time_to_peak = 0.6
 jump_time_to_descent = 0.33
+additional_jump_height = 1.7
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(5, 2)
@@ -294,6 +295,10 @@ debug_color = Color(0.833614, 0.0013354, 0.937399, 0.42)
 
 [node name="SlideTimer" type="Timer" parent="."]
 wait_time = 0.5
+one_shot = true
+
+[node name="MaxJumpTimer" type="Timer" parent="."]
+wait_time = 0.1
 one_shot = true
 
 [node name="States" type="Node" parent="." node_paths=PackedStringArray("current_state")]
@@ -320,3 +325,4 @@ actor = NodePath("../..")
 script = ExtResource("9_5d7la")
 
 [connection signal="timeout" from="SlideTimer" to="States/Sliding" method="_on_slide_timer_timeout"]
+[connection signal="timeout" from="MaxJumpTimer" to="States/Jumping" method="_on_max_jump_timer_timeout"]
