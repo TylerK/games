@@ -16,7 +16,7 @@ func physics_update(_delta):
 	if Input.is_action_just_pressed("attack"):
 		transitioned.emit("AirAttacking")
 	if Input.is_action_just_released("jump"):
-		end_jump()
+		end_jump_early()
 	if Input.is_action_just_pressed("jump"):
 		buffer_jump()
 	if actor.is_on_floor():
@@ -26,11 +26,10 @@ func physics_update(_delta):
 			transitioned.emit('Running')
 
 func jump() -> void:
-	if actor.is_on_floor():
-		actor.velocity.y = 0
-		actor.velocity.y = actor.jump_velocity
+	actor.velocity.y = 0
+	actor.velocity.y = actor.jump_velocity
 
-func end_jump() -> void:
+func end_jump_early() -> void:
 	if actor.velocity.y < -100:
 		actor.velocity.y = -100
 

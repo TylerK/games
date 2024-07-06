@@ -11,7 +11,7 @@ func enter():
 func physics_update(delta):
 	actor.velocity.y += actor.get_gravity() * delta
 	if animation.frame == 3:
-		animation.play("jump1")
+		transitioned.emit("Jumping")
 	if actor.is_on_floor():
 		transitioned.emit("Running")
 

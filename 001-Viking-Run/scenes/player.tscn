@@ -1,14 +1,15 @@
-[gd_scene load_steps=43 format=3 uid="uid://c0oxffugc611e"]
+[gd_scene load_steps=44 format=3 uid="uid://c0oxffugc611e"]
 
 [ext_resource type="Texture2D" uid="uid://ciq8awnkh2l7r" path="res://assets/player/sprite-sheet.png" id="1_o3tlo"]
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_ood15"]
 [ext_resource type="Texture2D" uid="uid://birl44vnjr8rn" path="res://assets/effects/Ice Smoke-Sheet.png" id="2_xvfx6"]
 [ext_resource type="Script" path="res://classes/state_machine.gd" id="3_4f6te"]
-[ext_resource type="Script" path="res://scripts/player/player_running_state.gd" id="5_wgdf4"]
-[ext_resource type="Script" path="res://scripts/player/player_attacking_state.gd" id="6_6jj5l"]
-[ext_resource type="Script" path="res://scripts/player/player_air_attacking_state.gd" id="7_t8dn6"]
-[ext_resource type="Script" path="res://scripts/player/player_jumping_state.gd" id="8_ht3du"]
-[ext_resource type="Script" path="res://scripts/player/player_sliding_state.gd" id="9_5d7la"]
+[ext_resource type="Script" path="res://scripts/player/player_state_running.gd" id="5_wgdf4"]
+[ext_resource type="Script" path="res://scripts/player/player_state_attacking.gd" id="6_6jj5l"]
+[ext_resource type="Script" path="res://scripts/player/player_state_air_attacking.gd" id="7_t8dn6"]
+[ext_resource type="Script" path="res://scripts/player/player_state_jumping.gd" id="8_ht3du"]
+[ext_resource type="Script" path="res://scripts/player/player_state_sliding.gd" id="9_5d7la"]
+[ext_resource type="Script" path="res://scripts/player/player_state_falling.gd" id="10_81rug"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8atd2"]
 atlas = ExtResource("1_o3tlo")
@@ -46,6 +47,14 @@ region = Rect2(230, 840, 115, 84)
 atlas = ExtResource("1_o3tlo")
 region = Rect2(345, 840, 115, 84)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ri1v"]
+atlas = ExtResource("1_o3tlo")
+region = Rect2(230, 504, 115, 84)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4di4"]
+atlas = ExtResource("1_o3tlo")
+region = Rect2(0, 588, 115, 84)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_f12ab"]
 atlas = ExtResource("1_o3tlo")
 region = Rect2(0, 420, 115, 84)
@@ -57,14 +66,6 @@ region = Rect2(0, 504, 115, 84)
 [sub_resource type="AtlasTexture" id="AtlasTexture_jumbd"]
 atlas = ExtResource("1_o3tlo")
 region = Rect2(115, 504, 115, 84)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4ri1v"]
-atlas = ExtResource("1_o3tlo")
-region = Rect2(230, 504, 115, 84)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p4di4"]
-atlas = ExtResource("1_o3tlo")
-region = Rect2(0, 588, 115, 84)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ydl0d"]
 atlas = ExtResource("1_o3tlo")
@@ -155,6 +156,17 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_4ri1v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p4di4")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_f12ab")
 }],
 "loop": true,
@@ -170,17 +182,6 @@ animations = [{
 }],
 "loop": true,
 "name": &"jump2",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4ri1v")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p4di4")
-}],
-"loop": true,
-"name": &"jump3",
 "speed": 10.0
 }, {
 "frames": [{
@@ -278,7 +279,7 @@ jump_time_to_descent = 0.3
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(5, 2)
 sprite_frames = SubResource("SpriteFrames_3oa23")
-animation = &"slide"
+animation = &"fall"
 
 [node name="Smoke" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -294,10 +295,6 @@ debug_color = Color(0.833614, 0.0013354, 0.937399, 0.42)
 
 [node name="SlideTimer" type="Timer" parent="."]
 wait_time = 0.5
-one_shot = true
-
-[node name="CoyoteTimer" type="Timer" parent="."]
-wait_time = 0.1
 one_shot = true
 
 [node name="States" type="Node" parent="." node_paths=PackedStringArray("current_state")]
@@ -324,5 +321,9 @@ jump_buffer_time = 0.1
 [node name="Sliding" type="Node" parent="States"]
 script = ExtResource("9_5d7la")
 
+[node name="Falling" type="Node" parent="States" node_paths=PackedStringArray("actor")]
+script = ExtResource("10_81rug")
+actor = NodePath("../..")
+coyote_time = 0.15
+
 [connection signal="timeout" from="SlideTimer" to="States/Sliding" method="_on_slide_timer_timeout"]
-[connection signal="timeout" from="CoyoteTimer" to="States/Sliding" method="_on_slide_timer_timeout"]
