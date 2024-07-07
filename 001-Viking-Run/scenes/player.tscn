@@ -309,7 +309,7 @@ actor = NodePath("../..")
 script = ExtResource("6_6jj5l")
 actor = NodePath("../..")
 
-[node name="AirAttacking" type="Node" parent="States" node_paths=PackedStringArray("actor")]
+[node name="Air_Attacking" type="Node" parent="States" node_paths=PackedStringArray("actor")]
 script = ExtResource("7_t8dn6")
 actor = NodePath("../..")
 
