@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://c0oxffugc611e"]
+[gd_scene load_steps=43 format=3 uid="uid://c0oxffugc611e"]
 
 [ext_resource type="Texture2D" uid="uid://ciq8awnkh2l7r" path="res://assets/player/sprite-sheet.png" id="1_o3tlo"]
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_ood15"]
@@ -47,13 +47,9 @@ region = Rect2(230, 840, 115, 84)
 atlas = ExtResource("1_o3tlo")
 region = Rect2(345, 840, 115, 84)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4ri1v"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_uvv37"]
 atlas = ExtResource("1_o3tlo")
-region = Rect2(230, 504, 115, 84)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p4di4"]
-atlas = ExtResource("1_o3tlo")
-region = Rect2(0, 588, 115, 84)
+region = Rect2(805, 168, 115, 84)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f12ab"]
 atlas = ExtResource("1_o3tlo")
@@ -156,10 +152,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4ri1v")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p4di4")
+"texture": SubResource("AtlasTexture_uvv37")
 }],
 "loop": true,
 "name": &"fall",
@@ -279,7 +272,7 @@ jump_time_to_descent = 0.3
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(5, 2)
 sprite_frames = SubResource("SpriteFrames_3oa23")
-animation = &"fall"
+animation = &"slide"
 
 [node name="Smoke" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -292,10 +285,6 @@ frame_progress = 1.0
 position = Vector2(3, 12)
 shape = SubResource("RectangleShape2D_42ntb")
 debug_color = Color(0.833614, 0.0013354, 0.937399, 0.42)
-
-[node name="SlideTimer" type="Timer" parent="."]
-wait_time = 0.5
-one_shot = true
 
 [node name="States" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("3_4f6te")
@@ -316,14 +305,12 @@ actor = NodePath("../..")
 [node name="Jumping" type="Node" parent="States" node_paths=PackedStringArray("actor")]
 script = ExtResource("8_ht3du")
 actor = NodePath("../..")
-jump_buffer_time = 0.1
 
-[node name="Sliding" type="Node" parent="States"]
+[node name="Sliding" type="Node" parent="States" node_paths=PackedStringArray("actor")]
 script = ExtResource("9_5d7la")
+actor = NodePath("../..")
 
 [node name="Falling" type="Node" parent="States" node_paths=PackedStringArray("actor")]
 script = ExtResource("10_81rug")
 actor = NodePath("../..")
 coyote_time = 0.15
-
-[connection signal="timeout" from="SlideTimer" to="States/Sliding" method="_on_slide_timer_timeout"]

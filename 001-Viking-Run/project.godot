@@ -17,6 +17,7 @@ config/features=PackedStringArray("4.2", "Forward Plus")
 [autoload]
 
 Globals="*res://singletons/globals.gd"
+InputBuffer="*res://singletons/input_buffer.gd"
 
 [display]
 

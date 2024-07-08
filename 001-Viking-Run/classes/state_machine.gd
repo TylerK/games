@@ -16,6 +16,7 @@ func _ready() -> void:
 
 func on_child_transitioned(new_state_name: StringName) -> void:
 	var new_state = states.get(new_state_name)
+	print(new_state)
 	if new_state != null:
 		if new_state != current_state:
 			current_state.exit()
@@ -28,5 +29,4 @@ func _process(delta):
 	current_state.update(delta)
 
 func _physics_process(delta):
-	#print(current_state)
 	current_state.physics_update(delta)

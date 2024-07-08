@@ -60,3 +60,4 @@ position = Vector2(184, 280)
 jump_height = 96.0
 jump_time_to_peak = 0.32
 jump_time_to_descent = 0.28
+jump_end_minimum_velocity = -100.0

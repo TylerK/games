@@ -8,6 +8,7 @@ class_name PlayerAirAttackingState
 func enter():
 	animation.play("air_attack")
 
+
 func physics_update(delta):
 	actor.velocity.y += actor.get_gravity() * delta
 	if animation.frame == 3:

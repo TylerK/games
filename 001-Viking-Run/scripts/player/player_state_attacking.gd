@@ -8,6 +8,7 @@ class_name AttackingState
 func enter():
 	animation.play('attack')
 
+
 func physics_update(_delta):
 	if animation.frame == 3:
 		transitioned.emit('Running')

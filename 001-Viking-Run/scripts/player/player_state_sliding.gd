@@ -2,14 +2,14 @@ extends State
 
 class_name SlidingState
 
+@export var actor: CharacterBody2D
 @onready var animation: AnimatedSprite2D = $"../../PlayerSprite";
 @onready var smoke_effect: AnimatedSprite2D = $"../../Smoke";
-@onready var timer = $"../../SlideTimer"
 @onready var collider: CollisionShape2D = $"../../CollisionShape2D"
 
 func enter():
-	timer.start()
-	# Shrink and move the collider to acount for the smaller sprites
+	get_tree().create_timer(0.3).timeout.connect(slider_timer_end)
+	# Reduce height and move the collider to acount for the slide animation height
 	collider.shape.extents = Vector2(10.0, 8.0)
 	collider.move_local_y(10.0)
 	smoke_effect.visible = true
@@ -25,8 +25,11 @@ func physics_update(_delta):
 		smoke_effect.stop()
 		smoke_effect.visible = false
 
-func _on_slide_timer_timeout():
+func slider_timer_end():
 	# Reset the collider size and position
 	collider.shape.extents = Vector2(10.0, 20.0)
 	collider.move_local_y(-10.0)
-	transitioned.emit("Running")
+	if InputBuffer.is_action_pressed_buffered('jump'):
+		transitioned.emit('Jumping')
+	else:
+		transitioned.emit("Running")
