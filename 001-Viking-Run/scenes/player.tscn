@@ -272,17 +272,16 @@ jump_time_to_descent = 0.3
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(5, 2)
 sprite_frames = SubResource("SpriteFrames_3oa23")
-animation = &"slide"
+animation = &"run"
 
 [node name="Smoke" type="AnimatedSprite2D" parent="."]
-visible = false
 position = Vector2(0, 23)
 sprite_frames = SubResource("SpriteFrames_g87ln")
 frame = 3
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3, 12)
+position = Vector2(3, 11.5)
 shape = SubResource("RectangleShape2D_42ntb")
 debug_color = Color(0.833614, 0.0013354, 0.937399, 0.42)
 

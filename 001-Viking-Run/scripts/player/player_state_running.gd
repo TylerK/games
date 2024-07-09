@@ -10,7 +10,7 @@ func enter():
 
 
 func physics_update(_delta):
-	if !actor.is_on_floor():
+	if !actor.is_on_floor_only():
 		transitioned.emit('Falling')
 	if Input.is_action_just_pressed("jump"):
 		transitioned.emit('Jumping')
