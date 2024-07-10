@@ -265,16 +265,14 @@ size = Vector2(20, 40)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_ood15")
-jump_height = 60.0
-jump_time_to_peak = 0.5
-jump_time_to_descent = 0.3
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(5, 2)
 sprite_frames = SubResource("SpriteFrames_3oa23")
-animation = &"run"
+animation = &"air_attack"
 
 [node name="Smoke" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(0, 23)
 sprite_frames = SubResource("SpriteFrames_g87ln")
 frame = 3

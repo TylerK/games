@@ -22,13 +22,11 @@ func physics_update(_delta):
 			transitioned.emit('Sliding')
 		else:
 			transitioned.emit('Running')
-	if actor.velocity.y > 0:
-		animation.play('fall')
 
 
 func jump() -> void:
-	actor.velocity.y = 0
-	actor.velocity.y = actor.jump_velocity
+	if actor.velocity.y == 0:
+		actor.velocity.y = actor.jump_velocity
 
 
 func end_jump_early() -> void:

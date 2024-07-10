@@ -6,13 +6,13 @@ class_name PlayerAirAttackingState
 @onready var animation: AnimatedSprite2D = $"../../PlayerSprite"
 
 func enter():
+	print('air attack! hyea!')
 	animation.play("air_attack")
 
 
-func physics_update(delta):
-	actor.velocity.y += actor.get_gravity() * delta
-	if animation.frame == 3:
-		transitioned.emit("Jumping")
-	if actor.is_on_floor():
+func physics_update(_delta):
+	#if animation.frame == 3:
+		#transitioned.emit("Jumping")
+	if actor.is_on_floor_only():
 		transitioned.emit("Running")
 
